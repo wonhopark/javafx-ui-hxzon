@@ -1,0 +1,230 @@
+package chartssampler;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.util.Duration;
+
+/**
+ * LineChart CategoryAxis Demo
+ */
+public class LineCategoryDemo extends ChartDemo<LineChart<String,Number>> {
+    private static final String[] CATEGORIES = {"Alpha","Beta","RC1","RC2","1.0","1.1"};
+
+    public LineCategoryDemo() {
+        super("Using Category Axis");
+    }
+
+    @Override protected LineChart<String, Number> createChart() {
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        final LineChart<String,Number> lc = new LineChart<String,Number>(xAxis,yAxis);
+        // setup chart
+        lc.setTitle("LineChart with Category Axis");
+        xAxis.setLabel("X Axis");
+        yAxis.setLabel("Y Axis");
+        // add starting data
+        XYChart.Series<String,Number> series = new XYChart.Series<String,Number>();
+        series.setName("Data Series 1");
+        series.getData().add(new XYChart.Data<String,Number>(CATEGORIES[0], 50d));
+        series.getData().add(new XYChart.Data<String,Number>(CATEGORIES[1], 80d));
+        series.getData().add(new XYChart.Data<String,Number>(CATEGORIES[2], 90d));
+        series.getData().add(new XYChart.Data<String,Number>(CATEGORIES[3], 30d));
+        series.getData().add(new XYChart.Data<String,Number>(CATEGORIES[4], 122d));
+        series.getData().add(new XYChart.Data<String,Number>(CATEGORIES[5], 10d));
+        lc.getData().add(series);
+        return lc;
+    }
+
+    @Override protected PropertySheet createPropertySheet() {
+        final LineChart<String,Number> lc = getChart();
+        final CategoryAxis xAxis = (CategoryAxis)lc.getXAxis();
+        final NumberAxis yAxis = (NumberAxis)lc.getYAxis();
+        EventHandler<ActionEvent> addDataItem = new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent actionEvent) {
+                if (!lc.getData().isEmpty()) {
+                    XYChart.Series<String, Number> s = lc.getData().get((int)(Math.random()*(lc.getData().size()-1)));
+                    if(s!=null) s.getData().add(
+                            new LineChart.Data<String, Number>(CATEGORIES[(int)(Math.random()*CATEGORIES.length)], Math.random()*1000));
+                }
+            }
+        };
+        EventHandler<ActionEvent> insertDataItem = new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent actionEvent) {
+                if (!lc.getData().isEmpty()) {
+                    XYChart.Series<String, Number> s = lc.getData().get((int)(Math.random()*(lc.getData().size()-1)));
+                    if(s!=null) s.getData().add((int)(s.getData().size()*Math.random()) ,
+                            new LineChart.Data<String, Number>(CATEGORIES[(int)(Math.random()*CATEGORIES.length)], Math.random()*1000));
+                }
+            }
+        };
+        EventHandler<ActionEvent> addDataItemNegative = new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent actionEvent) {
+                if (!lc.getData().isEmpty()) {
+                    XYChart.Series<String, Number> s = lc.getData().get((int)(Math.random()*(lc.getData().size()-1)));
+                    if(s!=null) s.getData().add(
+                            new LineChart.Data<String, Number>(CATEGORIES[(int)(Math.random()*CATEGORIES.length)], Math.random()*-200));
+                }
+            }
+        };
+        EventHandler<ActionEvent> deleteDataItem = new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent actionEvent) {
+                if (!lc.getData().isEmpty()) {
+                    XYChart.Series<String, Number> s = lc.getData().get((int)(Math.random()*(lc.getData().size()-1)));
+                    if(s!=null && !s.getData().isEmpty()) s.getData().remove((int) (Math.random() * (s.getData().size() - 1)));
+                }
+            }
+        };
+        EventHandler<ActionEvent> changeDataItem = new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent actionEvent) {
+                if (!lc.getData().isEmpty()) {
+                    XYChart.Series<String, Number> s = lc.getData().get((int)(Math.random()*(lc.getData().size())));
+                    if(s!=null && !s.getData().isEmpty()) {
+                        XYChart.Data<String,Number> d = s.getData().get((int)(Math.random()*(s.getData().size())));
+                        if (d!=null) {
+                            d.setYValue(Math.random() * 1000);
+                        }
+                    }
+                }
+            }
+        };
+        EventHandler<ActionEvent> addSeries = new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent actionEvent) {
+                try {
+                    LineChart.Series<String, Number> series = new LineChart.Series<String, Number>();
+                    series.setName("Data Series 1");
+                    for (String category : CATEGORIES) {
+                        series.getData().add(new LineChart.Data<String, Number>(category, Math.random() * 800));
+                    }
+                    if (lc.getData() == null) lc.setData(FXCollections.<XYChart.Series<String,Number>>observableArrayList());
+                    lc.getData().add(series);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        EventHandler<ActionEvent> deleteSeries = new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent actionEvent) {
+                if (!lc.getData().isEmpty()) {
+                    lc.getData().remove((int)(Math.random()*(lc.getData().size()-1)));
+                }
+            }
+        };
+        EventHandler<ActionEvent> animateData = new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent actionEvent) {
+                Timeline tl = new Timeline();
+                tl.getKeyFrames().add(
+                    new KeyFrame(Duration.valueOf(500), new EventHandler<ActionEvent>() {
+                        @Override public void handle(ActionEvent actionEvent) {
+                            for (XYChart.Series<String, Number> series: lc.getData()) {
+                                for (XYChart.Data<String, Number> data: series.getData()) {
+    //                                data.setXValue(Math.random()*1000);
+                                    data.setYValue(Math.random()*1000);
+                                }
+                            }
+                        }
+                    })
+                );
+                tl.setCycleCount(30);
+                tl.play();
+            }
+        };
+        EventHandler<ActionEvent> removeAllData = new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent actionEvent) {
+                lc.setData(null);
+            }
+        };
+        EventHandler<ActionEvent> setNewData = new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent actionEvent) {
+                ObservableList<XYChart.Series<String,Number>> data = FXCollections.observableArrayList();
+                for (int j=0; j<5;j++) {
+                    LineChart.Series<String, Number> series = new LineChart.Series<String, Number>();
+                    series.setName("Data Series "+j);
+                    for (String category : CATEGORIES) {
+                        series.getData().add(new LineChart.Data<String, Number>(category, Math.random()*800));
+                    }
+                    data.add(series);
+                }
+                lc.setData(data);
+            }
+        };
+        // create property editor
+        return new PropertySheet(
+            new PropertySheet.PropertyGroup("Actions",
+                PropertySheet.createProperty("Add Data Item",addDataItem),
+                PropertySheet.createProperty("Insert Data Item",insertDataItem),
+                PropertySheet.createProperty("Add Data Item Negative",addDataItemNegative),
+                PropertySheet.createProperty("Delete Data Item",deleteDataItem),
+                PropertySheet.createProperty("Change Data Item",changeDataItem),
+                PropertySheet.createProperty("Add Series",addSeries),
+                PropertySheet.createProperty("Delete Series",deleteSeries),
+                PropertySheet.createProperty("Animate Data",animateData),
+                PropertySheet.createProperty("Remove All Data",removeAllData),
+                PropertySheet.createProperty("Set New Data",setNewData)
+            ),
+            new PropertySheet.PropertyGroup("Chart Properties",
+                PropertySheet.createProperty("Title",lc.titleProperty()),
+                PropertySheet.createProperty("Title Side",lc.titleSideProperty()),
+                PropertySheet.createProperty("Legend Side",lc.legendSideProperty())
+            ),
+            new PropertySheet.PropertyGroup("XY Chart Properties",
+                PropertySheet.createProperty("Vertical Grid Line Visible",lc.verticalGridLinesVisibleProperty()),
+                PropertySheet.createProperty("Horizontal Grid Line Visible",lc.horizontalGridLinesVisibleProperty()),
+                PropertySheet.createProperty("Alternative Column Fill Visible",lc.alternativeColumnFillVisibleProperty()),
+                PropertySheet.createProperty("Alternative Row Fill Visible",lc.alternativeRowFillVisibleProperty()),
+                PropertySheet.createProperty("Vertical Zero Line Visible",lc.verticalZeroLineVisibleProperty()),
+                PropertySheet.createProperty("Horizontal Zero Line Visible",lc.horizontalZeroLineVisibleProperty()),
+                PropertySheet.createProperty("Animated",lc.animatedProperty())
+            ),
+            new PropertySheet.PropertyGroup("X Axis Properties",
+                PropertySheet.createProperty("Side",xAxis.sideProperty()),
+                PropertySheet.createProperty("Label",xAxis.labelProperty()),
+                PropertySheet.createProperty("Label",xAxis.labelProperty()),
+                PropertySheet.createProperty("Tick Mark Length",xAxis.tickLengthProperty()),
+                PropertySheet.createProperty("Tick Label Rotation",xAxis.tickLabelRotationProperty()),
+                PropertySheet.createProperty("Auto Ranging",xAxis.autoRangingProperty()),
+                PropertySheet.createProperty("Tick Label Font",xAxis.tickLabelFontProperty()),
+                PropertySheet.createProperty("Tick Label Fill",xAxis.tickLabelFillProperty()),
+                PropertySheet.createProperty("Tick Label Gap",xAxis.tickLabelGapProperty())//,
+//                // Value Axis Props
+//                PropertySheet.createProperty("Scale",xAxis.scaleProperty()),
+//                PropertySheet.createProperty("Lower Bound",xAxis.lowerBoundProperty()),
+//                PropertySheet.createProperty("Upper Bound",xAxis.upperBoundProperty()),
+//                PropertySheet.createProperty("Tick Label Formatter",xAxis.tickLabelFormatterProperty()),
+//                PropertySheet.createProperty("Minor Tick Length",xAxis.minorTickLengthProperty()),
+//                PropertySheet.createProperty("Minor Tick Count",xAxis.minorTickCountProperty()),
+//                // Number Axis Properties
+//                PropertySheet.createProperty("Force Zero In Range",xAxis.forceZeroInRangeProperty()),
+//                PropertySheet.createProperty("Tick Unit",xAxis.tickUnitProperty())
+            ),
+            new PropertySheet.PropertyGroup("Y Axis Properties",
+                PropertySheet.createProperty("Side",yAxis.sideProperty()),
+                PropertySheet.createProperty("Label",yAxis.labelProperty()),
+                PropertySheet.createProperty("Label",yAxis.labelProperty()),
+                PropertySheet.createProperty("Tick Mark Length",yAxis.tickLengthProperty()),
+                PropertySheet.createProperty("Tick Label Rotation",yAxis.tickLabelRotationProperty()),
+                PropertySheet.createProperty("Auto Ranging",yAxis.autoRangingProperty()),
+                PropertySheet.createProperty("Tick Label Font",yAxis.tickLabelFontProperty()),
+                PropertySheet.createProperty("Tick Label Fill",yAxis.tickLabelFillProperty()),
+                PropertySheet.createProperty("Tick Label Gap",yAxis.tickLabelGapProperty()),
+                // Value Axis Props
+                PropertySheet.createProperty("Scale",yAxis.scaleProperty()),
+                PropertySheet.createProperty("Lower Bound",yAxis.lowerBoundProperty()),
+                PropertySheet.createProperty("Upper Bound",yAxis.upperBoundProperty()),
+                PropertySheet.createProperty("Tick Label Formatter",yAxis.tickLabelFormatterProperty()),
+                PropertySheet.createProperty("Minor Tick Length",yAxis.minorTickLengthProperty()),
+                PropertySheet.createProperty("Minor Tick Count",yAxis.minorTickCountProperty()),
+                // Number Axis Properties
+                PropertySheet.createProperty("Force Zero In Range",yAxis.forceZeroInRangeProperty()),
+                PropertySheet.createProperty("Tick Unit",yAxis.tickUnitProperty())
+            )
+        );
+    }
+}
