@@ -53,14 +53,14 @@ public class TableDemo extends Application {
         label.setFont(new Font("Arial", 20));
 
         table.setStyle("-fx-base: #b6e7c9;");
-        Callback<TableColumn, TableCell> cellFactory =
-           new Callback<TableColumn, TableCell>() {
-                public TableCell call(TableColumn p) {
+        Callback<TableColumn<String>, TableCell<String>> cellFactory =
+           new Callback<TableColumn<String>, TableCell<String>>() {
+                public TableCell<String> call(TableColumn<String> p) {
                     return new EditingCell();
                 }
         };
         
-        TableColumn firstNameCol = new TableColumn("First Name");
+        TableColumn<String> firstNameCol = new TableColumn<String>("First Name");
         firstNameCol.setProperty("firstName");
         firstNameCol.setCellFactory(cellFactory);
         firstNameCol.setOnEditCommit(new EventHandler<EditEvent<String>>() {
@@ -71,7 +71,7 @@ public class TableDemo extends Application {
         });
         
 
-        TableColumn lastNameCol = new TableColumn("Last Name");
+        TableColumn<String> lastNameCol = new TableColumn<String>("Last Name");
         lastNameCol.setProperty("lastName");
         lastNameCol.setCellFactory(cellFactory);
         lastNameCol.setOnEditCommit(new EventHandler<EditEvent<String>>() {
@@ -81,10 +81,10 @@ public class TableDemo extends Application {
             }
         });       
 
-        TableColumn nameCol = new TableColumn("Name");
+        TableColumn<String> nameCol = new TableColumn<String>("Name");
         nameCol.getColumns().addAll(firstNameCol,lastNameCol);
         
-        TableColumn emailCol = new TableColumn("Email");
+        TableColumn<String> emailCol = new TableColumn<String>("Email");
         emailCol.setMinWidth(200);
         emailCol.setProperty("email");
         emailCol.setCellFactory(cellFactory);
