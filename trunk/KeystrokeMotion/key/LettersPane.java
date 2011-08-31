@@ -101,7 +101,7 @@ public class LettersPane extends Region {
         // over 3 seconds move letter to random position and fade it out
         final Timeline timeline = new Timeline();
         timeline.getKeyFrames().add(
-                new KeyFrame(Duration.valueOf(3000), new EventHandler<ActionEvent>() {
+                new KeyFrame(Duration.seconds(3), new EventHandler<ActionEvent>() {
                     @Override public void handle(ActionEvent event) {
                         // we are done remove us from scene
                         getChildren().remove(letter);

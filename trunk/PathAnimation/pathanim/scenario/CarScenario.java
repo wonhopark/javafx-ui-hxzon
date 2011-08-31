@@ -155,7 +155,7 @@ public class CarScenario extends Scenario {
         anim.setPath(track);
         anim.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
         anim.setInterpolator(Interpolator.LINEAR);
-        anim.setDuration(Duration.valueOf(6000));
+        anim.setDuration(Duration.seconds(6));
         anim.setCycleCount(Animation.INDEFINITE);
     }
 

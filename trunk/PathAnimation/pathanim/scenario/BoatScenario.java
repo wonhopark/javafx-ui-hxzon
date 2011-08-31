@@ -50,7 +50,7 @@ import pathanim.Util;
 
 public class BoatScenario extends Scenario {
 
-    private static final Duration DURATION = Duration.valueOf(8000);
+    private static final Duration DURATION = Duration.seconds(8);
 
     private Group content;
     private Group seaContent;

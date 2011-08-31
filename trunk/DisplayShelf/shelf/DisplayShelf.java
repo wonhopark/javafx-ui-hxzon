@@ -31,24 +31,26 @@
  */
 package shelf;
 
-import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.beans.value.InvalidationListener;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.image.Image;
-import javafx.scene.input.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.util.Duration;
 
 public class DisplayShelf extends Region {
 
-    private static final Duration DURATION = Duration.valueOf(500);
+    private static final Duration DURATION = Duration.millis(500);
     private static final Interpolator INTERPOLATOR = Interpolator.EASE_BOTH;
     private static final double SPACING = 50;
     private static final double LEFT_OFFSET = -110;
@@ -86,7 +88,7 @@ public class DisplayShelf extends Region {
         scrollBar.setUnitIncrement(1);
         scrollBar.setBlockIncrement(1);
         scrollBar.valueProperty().addListener(new InvalidationListener() {
-            public void invalidated(ObservableValue ov) {
+            public void invalidated(Observable ov) {
                 if(!localChange)
                     shiftToCenter(items[(int)scrollBar.getValue()]);
             }

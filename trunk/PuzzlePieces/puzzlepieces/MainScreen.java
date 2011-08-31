@@ -102,7 +102,7 @@ public class MainScreen {
                     KeyValue keyValueX = new KeyValue(piece.translateXProperty(), shuffleX);
                     KeyValue keyValueY = new KeyValue(piece.translateYProperty(), shuffleY);
 
-                    KeyFrame kf2 = new KeyFrame(Duration.valueOf(1000), keyValueX, keyValueY);
+                    KeyFrame kf2 = new KeyFrame(Duration.seconds(1), keyValueX, keyValueY);
 
                     timeline.getKeyFrames().add(kf2);
                 }
@@ -126,7 +126,7 @@ public class MainScreen {
                     KeyValue keyValueX = new KeyValue(piece.translateXProperty(), shuffleX);
                     KeyValue keyValueY = new KeyValue(piece.translateYProperty(), shuffleY);
 
-                    KeyFrame kf2 = new KeyFrame(Duration.valueOf(1000), keyValueX, keyValueY);
+                    KeyFrame kf2 = new KeyFrame(Duration.seconds(1), keyValueX, keyValueY);
 
                     timeline.getKeyFrames().add(kf2);
                 }

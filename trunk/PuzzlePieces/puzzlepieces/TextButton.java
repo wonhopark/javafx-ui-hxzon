@@ -73,7 +73,7 @@ public class TextButton extends Parent {
             public void handle(MouseEvent me) {
                 if (t != null) t.stop();
                 t = new Timeline();
-                KeyFrame kf = new KeyFrame(Duration.valueOf(1000*0.3),
+                KeyFrame kf = new KeyFrame(Duration.millis(1000*0.3),
                         new KeyValue(TextButton.this.opacityProperty(), HIGHLIGHT_OPACITY , Interpolator.EASE_OUT));
                 t.getKeyFrames().add(kf);
                 t.playFromStart();
@@ -83,7 +83,7 @@ public class TextButton extends Parent {
             public void handle(MouseEvent me) {
                 if (t != null) t.stop();
                 t = new Timeline();
-                KeyFrame kf = new KeyFrame(Duration.valueOf(1000*0.3),
+                KeyFrame kf = new KeyFrame(Duration.millis(1000*0.3),
                         new KeyValue(TextButton.this.opacityProperty(), DEFAULT_OPACITY , Interpolator.EASE_OUT)
                         );
                 t.getKeyFrames().add(kf);
@@ -96,7 +96,7 @@ public class TextButton extends Parent {
     private void configureText() {
         textNode.setFill(GRAY_COLOR);
         textNode.setText(text);
-        textNode.setFont(new Font("Amble Bold", 24));
+        textNode.setFont(new Font(Font.getDefault().getFamily(), 24));
         textNode.setLayoutX((WIDTH - textNode.getBoundsInLocal().getWidth())/2 + CORRECTION_VISUAL);
         textNode.setLayoutY((HEIGHT - textNode.getBoundsInLocal().getHeight())/2 );
         textNode.setTextOrigin(VPos.TOP);

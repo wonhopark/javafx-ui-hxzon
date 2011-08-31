@@ -40,7 +40,7 @@ public abstract class Scenario extends Region {
 
     private boolean animInProgress;
 
-    private static final Duration DURATION = Duration.valueOf(2000);
+    private static final Duration DURATION = Duration.seconds(2);
     private FadeTransition fadeIn;
     private FadeTransition fadeOut;
 

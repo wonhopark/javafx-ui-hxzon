@@ -32,13 +32,14 @@
 
 package chartssampler;
 
+import java.util.Arrays;
+
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import java.util.Arrays;
 
 /**
  * Basic StackedBarChart Demo
