@@ -1,6 +1,7 @@
 package org.hxzon.demo.javafx;
 
 import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,7 +16,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableView.EditEvent;
-import javafx.scene.control.TextBox;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
@@ -62,7 +63,7 @@ public class TableDemo extends Application {
         
         TableColumn<String> firstNameCol = new TableColumn<String>("First Name");
         firstNameCol.setProperty("firstName");
-        firstNameCol.setCellFactory(cellFactory);
+//        firstNameCol.setCellFactory(cellFactory);
         firstNameCol.setOnEditCommit(new EventHandler<EditEvent<String>>() {
             @Override public void handle(EditEvent<String> t) {
                 ((Person)t.getTableView().getItems().get(
@@ -73,7 +74,7 @@ public class TableDemo extends Application {
 
         TableColumn<String> lastNameCol = new TableColumn<String>("Last Name");
         lastNameCol.setProperty("lastName");
-        lastNameCol.setCellFactory(cellFactory);
+//        lastNameCol.setCellFactory(cellFactory);
         lastNameCol.setOnEditCommit(new EventHandler<EditEvent<String>>() {
             @Override public void handle(EditEvent<String> t) {
                 ((Person)t.getTableView().getItems().get(
@@ -87,7 +88,7 @@ public class TableDemo extends Application {
         TableColumn<String> emailCol = new TableColumn<String>("Email");
         emailCol.setMinWidth(200);
         emailCol.setProperty("email");
-        emailCol.setCellFactory(cellFactory);
+//        emailCol.setCellFactory(cellFactory);
         emailCol.setOnEditCommit(new EventHandler<EditEvent<String>>() {
             @Override public void handle(EditEvent<String> t) {
                 ((Person)t.getTableView().getItems().get(
@@ -98,13 +99,13 @@ public class TableDemo extends Application {
         table.setItems(data);
         table.getColumns().addAll(nameCol, emailCol);
       
-        final TextBox addFirstName = new TextBox();
+        final TextField addFirstName = new TextField();
         addFirstName.setPromptText("Last Name");
         addFirstName.setMaxWidth(firstNameCol.getPrefWidth());
-        final TextBox addLastName = new TextBox();
+        final TextField addLastName = new TextField();
         addLastName.setMaxWidth(lastNameCol.getPrefWidth());
         addLastName.setPromptText("Last Name");
-        final TextBox addEmail = new TextBox();
+        final TextField addEmail = new TextField();
         addEmail.setMaxWidth(emailCol.getPrefWidth());
         addEmail.setPromptText("Email");
 
@@ -116,9 +117,9 @@ public class TableDemo extends Application {
                         addLastName.getText(),
                         addEmail.getText()
                         ));
-                addFirstName.clear();
-                addLastName.clear();
-                addEmail.clear();
+                addFirstName.setText("");
+                addLastName.setText("");
+                addEmail.setText("");
             }
         });
 
@@ -142,9 +143,9 @@ public class TableDemo extends Application {
         private final StringProperty email;
 
         private Person(String fName, String lName, String email) {
-            this.firstName = new StringProperty(fName);
-            this.lastName = new StringProperty(lName);
-            this.email = new StringProperty(email);
+            this.firstName = new SimpleStringProperty(fName);
+            this.lastName = new SimpleStringProperty(lName);
+            this.email = new SimpleStringProperty(email);
         }
 
         public String getFirstName() {
@@ -173,7 +174,7 @@ public class TableDemo extends Application {
     class EditingCell extends TableCell<String> {
 
         private final Label label;
-        private TextBox textBox;
+        private TextField textBox;
 
         public EditingCell() {
             this.label = new Label();
@@ -190,19 +191,19 @@ public class TableDemo extends Application {
             } else {
                 textBox.setText(getItem());
             }
-            setNode(textBox);
+//            setNode(textBox);?
             textBox.requestFocus();
             textBox.selectAll();
         }
 
         @Override public void cancelEdit() {
             super.cancelEdit();
-            setNode(label);
+//            setNode(label);?
         }
 
         @Override public void commitEdit(String t) {
             super.commitEdit(t);
-            setNode(label);
+//            setNode(label);?
         }
 
         @Override public void updateItem(String item, boolean empty) {
@@ -212,17 +213,17 @@ public class TableDemo extends Application {
                     textBox.setText(item);
                 }
                 label.setText(item);
-                setNode(label);
+//                setNode(label);?
             }
         }
 
         private void createTextBox() {
-            textBox = new TextBox(getItem());
+            textBox = new TextField(getItem());
             textBox.setOnKeyReleased(new EventHandler<KeyEvent>() {
 
                 @Override public void handle(KeyEvent t) {
                     if (t.getCode() == KeyCode.ENTER) {
-                        commitEdit(textBox.getRawText());
+                        commitEdit(textBox.getText());
                     } else if (t.getCode() == KeyCode.ESCAPE) {
                         cancelEdit();
                     }
