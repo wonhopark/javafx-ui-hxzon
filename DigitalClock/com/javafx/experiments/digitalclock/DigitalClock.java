@@ -106,7 +106,7 @@ public class DigitalClock extends Parent {
                         Timeline everySecond = new Timeline();
                         everySecond.setCycleCount(Timeline.INDEFINITE);
                         everySecond.getKeyFrames().add(
-                                new KeyFrame(Duration.valueOf(1000), new EventHandler<ActionEvent>() {
+                                new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
                                     @Override public void handle(ActionEvent event) {
                                         refreshClocks();
                                     }

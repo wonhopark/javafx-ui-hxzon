@@ -31,11 +31,16 @@
  */
 package com.javafx.experiments.colorfulcircles;
 
+import static java.lang.Math.random;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.util.Duration;
+import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -49,11 +54,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
-import java.util.List;
-import javafx.application.Application;
-import static java.lang.Math.random;
+import javafx.util.Duration;
 
 /**
  * ColorfulCircles
@@ -98,23 +99,22 @@ public class ColorfulCirclesDocs extends Application {
         layer3.setEffect(new BoxBlur(10,10,3));
         // create a rectangle size of window with colored gradient
         Rectangle colors = new Rectangle(scene.getWidth(), scene.getHeight(),
-                new LinearGradient(0f,1f,1f,0f,true, CycleMethod.NO_CYCLE,new Stop[]{
-                    new Stop(0,Color.web("#f8bd55")),
-                    new Stop(0.14f,Color.web("#c0fe56")),
-                    new Stop(0.28f,Color.web("#5dfbc1")),
-                    new Stop(0.43f,Color.web("#64c2f8")),
-                    new Stop(0.57f,Color.web("#be4af7")),
-                    new Stop(0.71f,Color.web("#ed5fc2")),
-                    new Stop(0.85f,Color.web("#ef504c")),
-                    new Stop(1,Color.web("#f2660f")),
-                })
+                new LinearGradient(0f,1f,1f,0f,true, CycleMethod.NO_CYCLE,
+                        new Stop(0,Color.web("#f8bd55")),
+                        new Stop(0.14f,Color.web("#c0fe56")),
+                        new Stop(0.28f,Color.web("#5dfbc1")),
+                        new Stop(0.43f,Color.web("#64c2f8")),
+                        new Stop(0.57f,Color.web("#be4af7")),
+                        new Stop(0.71f,Color.web("#ed5fc2")),
+                        new Stop(0.85f,Color.web("#ef504c")),
+                        new Stop(1,Color.web("#f2660f")))
         );
         // create main content
         Group outerCircleGroup = new Group(
                 new Group(new Rectangle(scene.getWidth(), scene.getHeight(), Color.BLACK), layer1, layer2, layer3),
                 colors
         );
-        outerCircleGroup.setBlendMode(BlendMode.OVERLAY);
+        colors.setBlendMode(BlendMode.OVERLAY);
         ((Group)scene.getRoot()).getChildren().add(outerCircleGroup);
         // show stage
         stage.setVisible(true);

@@ -31,9 +31,10 @@
  */
 package shelf;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.value.InvalidationListener;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Parent;
 import javafx.scene.effect.PerspectiveTransform;
 import javafx.scene.effect.Reflection;
@@ -48,7 +49,7 @@ public class Item extends Parent {
     private static final double BACK = WIDTH / 10;
     private PerspectiveTransform transform = new PerspectiveTransform();
     /** Angle Non-Observable Property */
-    public final DoubleProperty angle = new DoubleProperty(45.0);
+    public final DoubleProperty angle = new SimpleDoubleProperty(45.0);
 
     public Item(Image image) {
 
@@ -62,7 +63,7 @@ public class Item extends Parent {
         getChildren().addAll(imageView);
         angle.set(45.0);
         angle.addListener(new InvalidationListener() {
-            public void invalidated(ObservableValue vm) {
+            public void invalidated(Observable vm) {
                 // calculate new transform
                 double lx = (RADIUS_H - Math.sin(Math.toRadians(angle.get())) * RADIUS_H - 1);
                 double rx = (RADIUS_H + Math.sin(Math.toRadians(angle.get())) * RADIUS_H + 1);

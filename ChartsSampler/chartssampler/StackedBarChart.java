@@ -32,9 +32,20 @@
 
 package chartssampler;
 
-import com.sun.javafx.charts.Legend;
-import javafx.animation.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.ParallelTransition;
+import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.builders.TimelineBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,7 +59,8 @@ import javafx.scene.chart.ValueAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
-import java.util.*;
+
+import com.sun.javafx.charts.Legend;
 
 /**
  * A chart that plots bars indicating data values for a category. The bars can be vertical or horizontal depending on
@@ -69,7 +81,7 @@ public class StackedBarChart<X,Y> extends XYChart<X,Y> {
     // -------------- PUBLIC PROPERTIES ----------------------------------------
 
     /** The gap to leave between bars in separate categories */
-    private DoubleProperty categoryGap = new DoubleProperty(10) {
+    private DoubleProperty categoryGap = new SimpleDoubleProperty(10) {
         @Override protected void invalidated() {
             get();
             requestChartLayout();
@@ -212,7 +224,7 @@ public class StackedBarChart<X,Y> extends XYChart<X,Y> {
             animate(
                     TimelineBuilder.create().keyFrames(
                         new KeyFrame(Duration.ZERO, new KeyValue(currentDisplayedYValueProperty(item), getCurrentDisplayedYValue(item))),
-                        new KeyFrame(Duration.valueOf(700), new KeyValue(currentDisplayedYValueProperty(item), item.getYValue(), Interpolator.EASE_BOTH))
+                        new KeyFrame(Duration.millis(700), new KeyValue(currentDisplayedYValueProperty(item), item.getYValue(), Interpolator.EASE_BOTH))
                     ).build()
             );
         } else {
@@ -227,7 +239,7 @@ public class StackedBarChart<X,Y> extends XYChart<X,Y> {
             animate(
                     TimelineBuilder.create().keyFrames(
                         new KeyFrame(Duration.ZERO, new KeyValue(currentDisplayedXValueProperty(item), getCurrentDisplayedXValue(item))),
-                        new KeyFrame(Duration.valueOf(700), new KeyValue(currentDisplayedXValueProperty(item), item.getXValue(), Interpolator.EASE_BOTH))
+                        new KeyFrame(Duration.millis(700), new KeyValue(currentDisplayedXValueProperty(item), item.getXValue(), Interpolator.EASE_BOTH))
                     ).build()
             );
         }
@@ -265,7 +277,7 @@ public class StackedBarChart<X,Y> extends XYChart<X,Y> {
             item.setYValue(getYAxis().toRealValue(getYAxis().getZeroPosition()));
             t.getKeyFrames().addAll(
                     new KeyFrame(Duration.ZERO, new KeyValue(currentDisplayedYValueProperty(item), getCurrentDisplayedYValue(item))),
-                    new KeyFrame(Duration.valueOf(700), new EventHandler<ActionEvent>() {
+                    new KeyFrame(Duration.millis(700), new EventHandler<ActionEvent>() {
                         @Override public void handle(ActionEvent actionEvent) {
                                 getPlotChildren().remove(bar);
                             }
@@ -275,7 +287,7 @@ public class StackedBarChart<X,Y> extends XYChart<X,Y> {
             item.setXValue(getXAxis().toRealValue(getXAxis().getZeroPosition()));
             t.getKeyFrames().addAll(
                 new KeyFrame(Duration.ZERO, new KeyValue(currentDisplayedXValueProperty(item), getCurrentDisplayedXValue(item))),
-                new KeyFrame(Duration.valueOf(700), new EventHandler<ActionEvent>() {
+                new KeyFrame(Duration.millis(700), new EventHandler<ActionEvent>() {
                         @Override public void handle(ActionEvent actionEvent) {
                             getPlotChildren().remove(bar);
                         }
@@ -305,7 +317,7 @@ public class StackedBarChart<X,Y> extends XYChart<X,Y> {
                     }
                 } else {
                     // fade out last series
-                    FadeTransition ft = new FadeTransition(Duration.valueOf(700),bar);
+                    FadeTransition ft = new FadeTransition(Duration.millis(700),bar);
                     ft.setFromValue(1);
                     ft.setToValue(0);
                     ft.setOnFinished(new EventHandler<ActionEvent>() {
