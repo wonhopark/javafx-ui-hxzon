@@ -31,9 +31,9 @@
  */
 package brickbreaker;
 
-import brickbreaker.Main.MainFrame;
 import java.util.ArrayList;
 import java.util.Iterator;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -41,9 +41,8 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.VPos;
-import javafx.util.Duration;
-import javafx.scene.Parent;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -53,6 +52,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
+import brickbreaker.Main.MainFrame;
 
 public class Level extends Parent {
 
@@ -102,7 +103,7 @@ public class Level extends Parent {
 
     private void initStartingTimeline() {
         startingTimeline = new Timeline();
-        KeyFrame kf1 = new KeyFrame(Duration.valueOf(500), new EventHandler<ActionEvent>() {
+        KeyFrame kf1 = new KeyFrame(Duration.millis(500), new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 message.setVisible(true);
                 state = STARTING_LEVEL;
@@ -110,9 +111,9 @@ public class Level extends Parent {
                 ball.setVisible(false);
             }
         }, new KeyValue(message.opacityProperty(), 0));
-        KeyFrame kf2 = new KeyFrame(Duration.valueOf(1500), new KeyValue(message.opacityProperty(), 1));
-        KeyFrame kf3 = new KeyFrame(Duration.valueOf(3000), new KeyValue(message.opacityProperty(), 1));
-        KeyFrame kf4 = new KeyFrame(Duration.valueOf(4000), new EventHandler<ActionEvent>() {
+        KeyFrame kf2 = new KeyFrame(Duration.millis(1500), new KeyValue(message.opacityProperty(), 1));
+        KeyFrame kf3 = new KeyFrame(Duration.millis(3000), new KeyValue(message.opacityProperty(), 1));
+        KeyFrame kf4 = new KeyFrame(Duration.millis(4000), new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 message.setVisible(false);
 

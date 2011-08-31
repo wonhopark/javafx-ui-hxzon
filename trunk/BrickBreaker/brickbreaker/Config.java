@@ -32,12 +32,12 @@
 package brickbreaker;
 
 import javafx.collections.ObservableList;
-import javafx.util.Duration;
 import javafx.scene.image.Image;
+import javafx.util.Duration;
 
 public final class Config {
 
-    public static final Duration ANIMATION_TIME = Duration.valueOf(40);
+    public static final Duration ANIMATION_TIME = Duration.millis(40);
     public static final int MAX_LIVES = 9;
     // Screen info
     public static final int FIELD_BRICK_IN_ROW = 15;
