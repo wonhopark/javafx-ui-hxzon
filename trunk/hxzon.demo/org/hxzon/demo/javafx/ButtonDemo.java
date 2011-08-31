@@ -38,7 +38,7 @@ public class ButtonDemo extends Application {
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.setAutoReverse(true);
 		final KeyValue kv = new KeyValue(button.opacityProperty(), 0);
-		final KeyFrame kf = new KeyFrame(Duration.valueOf(600), kv);
+		final KeyFrame kf = new KeyFrame(Duration.millis(600), kv);
 		timeline.getKeyFrames().add(kf);
 		timeline.play();
 		

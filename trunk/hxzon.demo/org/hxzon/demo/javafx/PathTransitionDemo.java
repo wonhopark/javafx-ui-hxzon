@@ -37,7 +37,7 @@ public class PathTransitionDemo extends Application {
 		path.getElements().add(new CubicCurveTo(0, 120, 0, 240, 380, 240));
 		//path transition
 		PathTransition pathTransition = new PathTransition();
-		pathTransition.setDuration(Duration.valueOf(4000));
+		pathTransition.setDuration(Duration.millis(4000));
 		pathTransition.setPath(path);
 		pathTransition.setNode(rect);
 		pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);

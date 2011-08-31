@@ -34,24 +34,24 @@ public class ParallelTransitionDemo extends Application {
 		rect.setTranslateX(50);
 		rect.setTranslateY(75);
 		//fade transition
-		FadeTransition fadeTransition = new FadeTransition(Duration.valueOf(3000), rect);
+		FadeTransition fadeTransition = new FadeTransition(Duration.millis(3000), rect);
 		fadeTransition.setFromValue(1.0f);
 		fadeTransition.setToValue(0.3f);
 		fadeTransition.setCycleCount(2);
 		fadeTransition.setAutoReverse(true);
 		//translate transition
-		TranslateTransition translateTransition = new TranslateTransition(Duration.valueOf(2000), rect);
+		TranslateTransition translateTransition = new TranslateTransition(Duration.millis(2000), rect);
 		translateTransition.setFromX(50);
 		translateTransition.setToX(350);
 		translateTransition.setCycleCount(2);
 		translateTransition.setAutoReverse(true);
 		//rotate transition
-		RotateTransition rotateTransition = new RotateTransition(Duration.valueOf(3000), rect);
+		RotateTransition rotateTransition = new RotateTransition(Duration.millis(3000), rect);
 		rotateTransition.setByAngle(180f);
 		rotateTransition.setCycleCount(4);
 		rotateTransition.setAutoReverse(true);
 		//scale transition
-		ScaleTransition scaleTransition = new ScaleTransition(Duration.valueOf(2000), rect);
+		ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(2000), rect);
 		scaleTransition.setToX(2f);
 		scaleTransition.setToY(2f);
 		scaleTransition.setCycleCount(2);
