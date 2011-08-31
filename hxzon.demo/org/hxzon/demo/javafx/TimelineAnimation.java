@@ -30,7 +30,7 @@ public class TimelineAnimation extends Application {
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.setAutoReverse(true);
 		final KeyValue kv = new KeyValue(rect.xProperty(), 300);
-		final KeyFrame kf = new KeyFrame(Duration.valueOf(500), kv);
+		final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
 		timeline.getKeyFrames().add(kf);
 		timeline.play();
 
