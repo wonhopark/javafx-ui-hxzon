@@ -12,6 +12,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -62,12 +63,15 @@ public class ListDemo extends Application {
 		Callback<ListView<String>, ListCell<String>> cellFactory = new Callback<ListView<String>, ListCell<String>>() {
 			public ListCell<String> call(ListView<String> p) {
 				return new ListCell<String>() {
+					final Rectangle rect = new Rectangle(100, 20);
 					@Override
 					public void updateItem(String item, boolean empty) {
 						super.updateItem(item, empty);
 						if (item != null) {
 							setText(item);
 							setTextFill(Color.web(item));
+							rect.setFill(Color.web(item));
+							setGraphic(rect);
 						}
 					}
 				};
