@@ -16,9 +16,8 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableView.EditEvent;
+import javafx.scene.control.TextBox;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -63,7 +62,7 @@ public class TableDemo extends Application {
         
         TableColumn<String> firstNameCol = new TableColumn<String>("First Name");
         firstNameCol.setProperty("firstName");
-//        firstNameCol.setCellFactory(cellFactory);
+        firstNameCol.setCellFactory(cellFactory);
         firstNameCol.setOnEditCommit(new EventHandler<EditEvent<String>>() {
             @Override public void handle(EditEvent<String> t) {
                 ((Person)t.getTableView().getItems().get(
@@ -74,7 +73,7 @@ public class TableDemo extends Application {
 
         TableColumn<String> lastNameCol = new TableColumn<String>("Last Name");
         lastNameCol.setProperty("lastName");
-//        lastNameCol.setCellFactory(cellFactory);
+        lastNameCol.setCellFactory(cellFactory);
         lastNameCol.setOnEditCommit(new EventHandler<EditEvent<String>>() {
             @Override public void handle(EditEvent<String> t) {
                 ((Person)t.getTableView().getItems().get(
@@ -88,7 +87,7 @@ public class TableDemo extends Application {
         TableColumn<String> emailCol = new TableColumn<String>("Email");
         emailCol.setMinWidth(200);
         emailCol.setProperty("email");
-//        emailCol.setCellFactory(cellFactory);
+        emailCol.setCellFactory(cellFactory);
         emailCol.setOnEditCommit(new EventHandler<EditEvent<String>>() {
             @Override public void handle(EditEvent<String> t) {
                 ((Person)t.getTableView().getItems().get(
@@ -171,64 +170,50 @@ public class TableDemo extends Application {
         
     }
     
-    class EditingCell extends TableCell<String> {
+	class EditingCell extends TableCell<String> {
 
-        private final Label label;
-        private TextField textBox;
+		private TextField textBox;
 
-        public EditingCell() {
-            this.label = new Label();
-        }
+		public EditingCell() {
+			this.textBox = new TextField();
+		}
 
-        @Override public void startEdit() {
-            super.startEdit();
-            if (isEmpty()) {
-                return;
-            }
+		@Override
+		public void startEdit() {
+			super.startEdit();
+			if (isEmpty()) {
+				return;
+			}
+			setText("");
+			setGraphic(textBox);
+			//why no effect?
+			textBox.requestFocus();
+			textBox.selectAll();
+		}
 
-            if (textBox == null) {
-                createTextBox();
-            } else {
-                textBox.setText(getItem());
-            }
-//            setNode(textBox);?
-            textBox.requestFocus();
-            textBox.selectAll();
-        }
+		@Override
+		public void cancelEdit() {
+			super.cancelEdit();
+			setGraphic(null);
+			setText(getItem());
+		}
 
-        @Override public void cancelEdit() {
-            super.cancelEdit();
-//            setNode(label);?
-        }
+		@Override
+		public void commitEdit(String t) {
+			super.commitEdit(t);
+			setGraphic(null);
+			setText(t);
+		}
 
-        @Override public void commitEdit(String t) {
-            super.commitEdit(t);
-//            setNode(label);?
-        }
+		@Override
+		public void updateItem(String item, boolean empty) {
+			super.updateItem(item, empty);
+			if (item != null) {
+				textBox.setText(item);
+				setGraphic(null);
+				setText(item);
+			}
+		}
 
-        @Override public void updateItem(String item, boolean empty) {
-            super.updateItem(item, empty);
-            if (!isEmpty()) {
-                if (textBox != null) {
-                    textBox.setText(item);
-                }
-                label.setText(item);
-//                setNode(label);?
-            }
-        }
-
-        private void createTextBox() {
-            textBox = new TextField(getItem());
-            textBox.setOnKeyReleased(new EventHandler<KeyEvent>() {
-
-                @Override public void handle(KeyEvent t) {
-                    if (t.getCode() == KeyCode.ENTER) {
-                        commitEdit(textBox.getText());
-                    } else if (t.getCode() == KeyCode.ESCAPE) {
-                        cancelEdit();
-                    }
-                }
-            });
-        }
-    }
+	}
 }
