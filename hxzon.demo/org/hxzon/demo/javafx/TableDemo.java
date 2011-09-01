@@ -170,50 +170,50 @@ public class TableDemo extends Application {
         
     }
     
-	class EditingCell extends TableCell<String> {
+    class EditingCell extends TableCell<String> {
 
-		private TextField textBox;
+        private TextField textBox;
 
-		public EditingCell() {
-			this.textBox = new TextField();
-		}
+        public EditingCell() {
+            this.textBox = new TextField();
+        }
 
-		@Override
-		public void startEdit() {
-			super.startEdit();
-			if (isEmpty()) {
-				return;
-			}
-			setText("");
-			setGraphic(textBox);
-			//why no effect?
-			textBox.requestFocus();
-			textBox.selectAll();
-		}
+        @Override
+        public void startEdit() {
+            super.startEdit();
+            if (isEmpty()) {
+                return;
+            }
+            setText("");
+            setGraphic(textBox);
+            //why no effect?
+            textBox.requestFocus();
+            textBox.selectAll();
+        }
 
-		@Override
-		public void cancelEdit() {
-			super.cancelEdit();
-			setGraphic(null);
-			setText(getItem());
-		}
+        @Override
+        public void cancelEdit() {
+            super.cancelEdit();
+            setGraphic(null);
+            setText(getItem());
+        }
 
-		@Override
-		public void commitEdit(String t) {
-			super.commitEdit(t);
-			setGraphic(null);
-			setText(t);
-		}
+        @Override
+        public void commitEdit(String t) {
+            super.commitEdit(t);
+            setGraphic(null);
+            setText(t);
+        }
 
-		@Override
-		public void updateItem(String item, boolean empty) {
-			super.updateItem(item, empty);
-			if (item != null) {
-				textBox.setText(item);
-				setGraphic(null);
-				setText(item);
-			}
-		}
+        @Override
+        public void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+            if (item != null) {
+                textBox.setText(item);
+                setGraphic(null);
+                setText(item);
+            }
+        }
 
-	}
+    }
 }
