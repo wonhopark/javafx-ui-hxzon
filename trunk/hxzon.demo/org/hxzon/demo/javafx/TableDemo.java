@@ -11,13 +11,16 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TableView.EditEvent;
-import javafx.scene.control.TextBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -53,43 +56,43 @@ public class TableDemo extends Application {
         label.setFont(new Font("Arial", 20));
 
         table.setStyle("-fx-base: #b6e7c9;");
-        Callback<TableColumn<String>, TableCell<String>> cellFactory =
-           new Callback<TableColumn<String>, TableCell<String>>() {
-                public TableCell<String> call(TableColumn<String> p) {
+        Callback<TableColumn<Person,String>, TableCell<Person,String>> cellFactory =
+           new Callback<TableColumn<Person,String>, TableCell<Person,String>>() {
+                public TableCell<Person,String> call(TableColumn<Person,String> p) {
                     return new EditingCell();
                 }
         };
         
-        TableColumn<String> firstNameCol = new TableColumn<String>("First Name");
-        firstNameCol.setProperty("firstName");
+        TableColumn<Person,String> firstNameCol = new TableColumn<Person,String>("First Name");
+        firstNameCol.setCellValueFactory(new PropertyValueFactory<Person,String>("firstName"));
         firstNameCol.setCellFactory(cellFactory);
-        firstNameCol.setOnEditCommit(new EventHandler<EditEvent<String>>() {
-            @Override public void handle(EditEvent<String> t) {
+        firstNameCol.setOnEditCommit(new EventHandler<CellEditEvent<Person,String>>() {
+            @Override public void handle(CellEditEvent<Person,String> t) {
                 ((Person)t.getTableView().getItems().get(
                  t.getTablePosition().getRow())).setFirstName(t.getNewValue());
             }
         });
         
 
-        TableColumn<String> lastNameCol = new TableColumn<String>("Last Name");
-        lastNameCol.setProperty("lastName");
+        TableColumn<Person,String> lastNameCol = new TableColumn<Person,String>("Last Name");
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<Person,String>("lastName"));
         lastNameCol.setCellFactory(cellFactory);
-        lastNameCol.setOnEditCommit(new EventHandler<EditEvent<String>>() {
-            @Override public void handle(EditEvent<String> t) {
+        lastNameCol.setOnEditCommit(new EventHandler<CellEditEvent<Person,String>>() {
+            @Override public void handle(CellEditEvent<Person,String> t) {
                 ((Person)t.getTableView().getItems().get(
                 t.getTablePosition().getRow())).setLastName(t.getNewValue());
             }
         });       
 
-        TableColumn<String> nameCol = new TableColumn<String>("Name");
+        TableColumn<Person,String> nameCol = new TableColumn<Person,String>("Name");
         nameCol.getColumns().addAll(firstNameCol,lastNameCol);
         
-        TableColumn<String> emailCol = new TableColumn<String>("Email");
+        TableColumn<Person,String> emailCol = new TableColumn<Person,String>("Email");
         emailCol.setMinWidth(200);
-        emailCol.setProperty("email");
+        emailCol.setCellValueFactory(new PropertyValueFactory<Person,String>("email"));
         emailCol.setCellFactory(cellFactory);
-        emailCol.setOnEditCommit(new EventHandler<EditEvent<String>>() {
-            @Override public void handle(EditEvent<String> t) {
+        emailCol.setOnEditCommit(new EventHandler<CellEditEvent<Person,String>>() {
+            @Override public void handle(CellEditEvent<Person,String> t) {
                 ((Person)t.getTableView().getItems().get(
                 t.getTablePosition().getRow())).setEmail(t.getNewValue());
             }
@@ -133,7 +136,7 @@ public class TableDemo extends Application {
         ((Group) scene.getRoot()).getChildren().addAll(vbox);
 
         stage.setScene(scene);
-        stage.setVisible(true);
+        stage.show();
     }
     
     public static class Person {
@@ -170,50 +173,59 @@ public class TableDemo extends Application {
         
     }
     
-    class EditingCell extends TableCell<String> {
+    class EditingCell extends TableCell<Person, String> {
+        
+        private TextField textField;
 
-        private TextField textBox;
-
-        public EditingCell() {
-            this.textBox = new TextField();
+        public EditingCell() {            
         }
 
-        @Override
+        @Override 
         public void startEdit() {
             super.startEdit();
             if (isEmpty()) {
                 return;
             }
-            setText("");
-            setGraphic(textBox);
-            //why no effect?
-            textBox.requestFocus();
-            textBox.selectAll();
+
+            if (textField == null) {
+                createTextField();
+            } else {
+                textField.setText(getItem());
+            }
+            setGraphic(textField);
+            setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         }
 
         @Override
         public void cancelEdit() {
             super.cancelEdit();
-            setGraphic(null);
-            setText(getItem());
+            setContentDisplay(ContentDisplay.TEXT_ONLY);
         }
 
-        @Override
-        public void commitEdit(String t) {
-            super.commitEdit(t);
-            setGraphic(null);
-            setText(t);
-        }
-
-        @Override
+        @Override         
         public void updateItem(String item, boolean empty) {
             super.updateItem(item, empty);
-            if (item != null) {
-                textBox.setText(item);
-                setGraphic(null);
+            if (!isEmpty()) {
+                if (textField != null) {
+                    textField.setText(item);
+                }
                 setText(item);
             }
         }
 
+        private void createTextField() {
+            textField = new TextField(getItem());
+            textField.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
+            textField.setOnKeyReleased(new EventHandler<KeyEvent>() {
+                @Override public void handle(KeyEvent t) {
+                    if (t.getCode() == KeyCode.ENTER) {
+                        commitEdit(textField.getText());
+                    } else if (t.getCode() == KeyCode.ESCAPE) {
+                        cancelEdit();
+                    }
+                }
+            });
+        }
     }
+
 }
