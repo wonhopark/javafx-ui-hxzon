@@ -15,51 +15,51 @@ import javafx.stage.Stage;
 
 public class PerspectiveEffect extends Application {
 
-	@Override
-	public void start(Stage stage) {
-		stage.show();
+    @Override
+    public void start(Stage stage) {
+        stage.show();
 
-		Scene scene = new Scene(new Group(), 840, 680);
-		ObservableList<Node> content = ((Group) scene.getRoot()).getChildren();
-		content.add(perspective());
-		stage.setScene(scene);
-	}
+        Scene scene = new Scene(new Group(), 840, 680);
+        ObservableList<Node> content = ((Group) scene.getRoot()).getChildren();
+        content.add(perspective());
+        stage.setScene(scene);
+    }
 
-	static Node perspective() {
-		Group g = new Group();
-		PerspectiveTransform pt = new PerspectiveTransform();
-		pt.setUlx(10.0f);
-		pt.setUly(10.0f);
-		pt.setUrx(210.0f);
-		pt.setUry(40.0f);
-		pt.setLrx(210.0f);
-		pt.setLry(60.0f);
-		pt.setLlx(10.0f);
-		pt.setLly(90.0f);
+    static Node perspective() {
+        Group g = new Group();
+        PerspectiveTransform pt = new PerspectiveTransform();
+        pt.setUlx(10.0f);
+        pt.setUly(10.0f);
+        pt.setUrx(210.0f);
+        pt.setUry(40.0f);
+        pt.setLrx(210.0f);
+        pt.setLry(60.0f);
+        pt.setLlx(10.0f);
+        pt.setLly(90.0f);
 
-		g.setEffect(pt);
-		g.setCache(true);
+        g.setEffect(pt);
+        g.setCache(true);
 
-		Rectangle r = new Rectangle();
-		r.setX(10.0f);
-		r.setY(10.0f);
-		r.setWidth(280.0f);
-		r.setHeight(80.0f);
-		r.setFill(Color.DARKBLUE);
+        Rectangle r = new Rectangle();
+        r.setX(10.0f);
+        r.setY(10.0f);
+        r.setWidth(280.0f);
+        r.setHeight(80.0f);
+        r.setFill(Color.DARKBLUE);
 
-		Text t = new Text();
-		t.setX(20.0f);
-		t.setY(65.0f);
-		t.setText("Perspective");
-		t.setFill(Color.RED);
-		t.setFont(Font.font("null", FontWeight.BOLD, 36));
+        Text t = new Text();
+        t.setX(20.0f);
+        t.setY(65.0f);
+        t.setText("Perspective");
+        t.setFill(Color.RED);
+        t.setFont(Font.font("null", FontWeight.BOLD, 36));
 
-		g.getChildren().add(r);
-		g.getChildren().add(t);
-		return g;
-	}
+        g.getChildren().add(r);
+        g.getChildren().add(t);
+        return g;
+    }
 
-	public static void main(String[] args) {
-		Application.launch(args);
-	}
+    public static void main(String[] args) {
+        Application.launch(args);
+    }
 }

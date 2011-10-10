@@ -15,44 +15,44 @@ import javafx.stage.Stage;
 
 public class ReflectionEffect extends Application {
 
-	@Override
-	public void start(Stage stage) {
-		stage.show();
+    @Override
+    public void start(Stage stage) {
+        stage.show();
 
-		Scene scene = new Scene(new Group(), 840, 680);
-		ObservableList<Node> content = ((Group) scene.getRoot()).getChildren();
-		content.add(reflectionText());
-		content.add(reflectionButton());
-		stage.setScene(scene);
-	}
+        Scene scene = new Scene(new Group(), 840, 680);
+        ObservableList<Node> content = ((Group) scene.getRoot()).getChildren();
+        content.add(reflectionText());
+        content.add(reflectionButton());
+        stage.setScene(scene);
+    }
 
-	static Node reflectionText() {
-		Text text = new Text();
-		text.setX(10.0f);
-		text.setY(50.0f);
-		text.setCache(true);
-		text.setText("Reflection in JavaFX...");
-		text.setFill(Color.RED);
-		text.setFont(Font.font("null", FontWeight.BOLD, 30));
+    static Node reflectionText() {
+        Text text = new Text();
+        text.setX(10.0f);
+        text.setY(50.0f);
+        text.setCache(true);
+        text.setText("Reflection in JavaFX...");
+        text.setFill(Color.RED);
+        text.setFont(Font.font("null", FontWeight.BOLD, 30));
 
-		Reflection r = new Reflection();
-		r.setFraction(0.9);
+        Reflection r = new Reflection();
+        r.setFraction(0.9);
 
-		text.setEffect(r);
+        text.setEffect(r);
 
-		text.setTranslateY(400);
-		return text;
-	}
+        text.setTranslateY(400);
+        return text;
+    }
 
-	static Node reflectionButton() {
-		Button button = new Button();
-		button.setText("OK");
-		button.setFont(new Font("Tahoma", 24));
-		button.setEffect(new Reflection());
-		return button;
-	}
+    static Node reflectionButton() {
+        Button button = new Button();
+        button.setText("OK");
+        button.setFont(new Font("Tahoma", 24));
+        button.setEffect(new Reflection());
+        return button;
+    }
 
-	public static void main(String[] args) {
-		Application.launch(args);
-	}
+    public static void main(String[] args) {
+        Application.launch(args);
+    }
 }

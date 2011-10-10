@@ -13,34 +13,34 @@ import javafx.util.Duration;
 
 public class TimelineAnimation extends Application {
 
-	@Override
-	public void start(Stage stage) {
-		Group p = new Group();
-		Scene scene = new Scene(p);
-		stage.setScene(scene);
-		stage.setWidth(500);
-		stage.setHeight(500);
-		p.setTranslateX(80);
-		p.setTranslateY(80);
+    @Override
+    public void start(Stage stage) {
+        Group p = new Group();
+        Scene scene = new Scene(p);
+        stage.setScene(scene);
+        stage.setWidth(500);
+        stage.setHeight(500);
+        p.setTranslateX(80);
+        p.setTranslateY(80);
 
-		final Rectangle rect = new Rectangle(100, 50, 100, 50);
-		rect.setFill(Color.BROWN);
+        final Rectangle rect = new Rectangle(100, 50, 100, 50);
+        rect.setFill(Color.BROWN);
 
-		final Timeline timeline = new Timeline();
-		timeline.setCycleCount(Timeline.INDEFINITE);
-		timeline.setAutoReverse(true);
-		final KeyValue kv = new KeyValue(rect.xProperty(), 300);
-		final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
-		timeline.getKeyFrames().add(kf);
-		timeline.play();
+        final Timeline timeline = new Timeline();
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.setAutoReverse(true);
+        final KeyValue kv = new KeyValue(rect.xProperty(), 300);
+        final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
+        timeline.getKeyFrames().add(kf);
+        timeline.play();
 
-		p.getChildren().add(rect);
+        p.getChildren().add(rect);
 
-		stage.show();
+        stage.show();
 
-	}
+    }
 
-	public static void main(String[] args) {
-		Application.launch(args);
-	}
+    public static void main(String[] args) {
+        Application.launch(args);
+    }
 }

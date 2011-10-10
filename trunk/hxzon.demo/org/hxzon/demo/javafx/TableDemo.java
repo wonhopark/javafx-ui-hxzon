@@ -30,15 +30,10 @@ import javafx.util.Callback;
 public class TableDemo extends Application {
 
     private TableView<Person> table = new TableView<Person>();
-    private final ObservableList<Person> data = 
-        FXCollections.observableArrayList(
-            new Person("Jacob", "Smith", "jacob.smith@example.com"),
-            new Person("Isabella", "Johnson", "isabella.johnson@example.com"),
-            new Person("Ethan", "Williams", "ethan.williams@example.com"),
-            new Person("Emma", "Jones", "emma.jones@example.com"),
-            new Person("Michael", "Brown", "michael.brown@example.com")
-        );
-    
+    private final ObservableList<Person> data = FXCollections.observableArrayList(new Person("Jacob", "Smith", "jacob.smith@example.com"), new Person("Isabella", "Johnson",
+            "isabella.johnson@example.com"), new Person("Ethan", "Williams", "ethan.williams@example.com"), new Person("Emma", "Jones", "emma.jones@example.com"), new Person("Michael", "Brown",
+            "michael.brown@example.com"));
+
     final HBox hb = new HBox();
 
     public static void main(String[] args) {
@@ -56,51 +51,49 @@ public class TableDemo extends Application {
         label.setFont(new Font("Arial", 20));
 
         table.setStyle("-fx-base: #b6e7c9;");
-        Callback<TableColumn<Person,String>, TableCell<Person,String>> cellFactory =
-           new Callback<TableColumn<Person,String>, TableCell<Person,String>>() {
-                public TableCell<Person,String> call(TableColumn<Person,String> p) {
-                    return new EditingCell();
-                }
+        Callback<TableColumn<Person, String>, TableCell<Person, String>> cellFactory = new Callback<TableColumn<Person, String>, TableCell<Person, String>>() {
+            public TableCell<Person, String> call(TableColumn<Person, String> p) {
+                return new EditingCell();
+            }
         };
-        
-        TableColumn<Person,String> firstNameCol = new TableColumn<Person,String>("First Name");
-        firstNameCol.setCellValueFactory(new PropertyValueFactory<Person,String>("firstName"));
+
+        TableColumn<Person, String> firstNameCol = new TableColumn<Person, String>("First Name");
+        firstNameCol.setCellValueFactory(new PropertyValueFactory<Person, String>("firstName"));
         firstNameCol.setCellFactory(cellFactory);
-        firstNameCol.setOnEditCommit(new EventHandler<CellEditEvent<Person,String>>() {
-            @Override public void handle(CellEditEvent<Person,String> t) {
-                ((Person)t.getTableView().getItems().get(
-                 t.getTablePosition().getRow())).setFirstName(t.getNewValue());
+        firstNameCol.setOnEditCommit(new EventHandler<CellEditEvent<Person, String>>() {
+            @Override
+            public void handle(CellEditEvent<Person, String> t) {
+                ((Person) t.getTableView().getItems().get(t.getTablePosition().getRow())).setFirstName(t.getNewValue());
             }
         });
-        
 
-        TableColumn<Person,String> lastNameCol = new TableColumn<Person,String>("Last Name");
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<Person,String>("lastName"));
+        TableColumn<Person, String> lastNameCol = new TableColumn<Person, String>("Last Name");
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<Person, String>("lastName"));
         lastNameCol.setCellFactory(cellFactory);
-        lastNameCol.setOnEditCommit(new EventHandler<CellEditEvent<Person,String>>() {
-            @Override public void handle(CellEditEvent<Person,String> t) {
-                ((Person)t.getTableView().getItems().get(
-                t.getTablePosition().getRow())).setLastName(t.getNewValue());
-            }
-        });       
-
-        TableColumn<Person,String> nameCol = new TableColumn<Person,String>("Name");
-        nameCol.getColumns().addAll(firstNameCol,lastNameCol);
-        
-        TableColumn<Person,String> emailCol = new TableColumn<Person,String>("Email");
-        emailCol.setMinWidth(200);
-        emailCol.setCellValueFactory(new PropertyValueFactory<Person,String>("email"));
-        emailCol.setCellFactory(cellFactory);
-        emailCol.setOnEditCommit(new EventHandler<CellEditEvent<Person,String>>() {
-            @Override public void handle(CellEditEvent<Person,String> t) {
-                ((Person)t.getTableView().getItems().get(
-                t.getTablePosition().getRow())).setEmail(t.getNewValue());
+        lastNameCol.setOnEditCommit(new EventHandler<CellEditEvent<Person, String>>() {
+            @Override
+            public void handle(CellEditEvent<Person, String> t) {
+                ((Person) t.getTableView().getItems().get(t.getTablePosition().getRow())).setLastName(t.getNewValue());
             }
         });
-                                      
+
+        TableColumn<Person, String> nameCol = new TableColumn<Person, String>("Name");
+        nameCol.getColumns().addAll(firstNameCol, lastNameCol);
+
+        TableColumn<Person, String> emailCol = new TableColumn<Person, String>("Email");
+        emailCol.setMinWidth(200);
+        emailCol.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
+        emailCol.setCellFactory(cellFactory);
+        emailCol.setOnEditCommit(new EventHandler<CellEditEvent<Person, String>>() {
+            @Override
+            public void handle(CellEditEvent<Person, String> t) {
+                ((Person) t.getTableView().getItems().get(t.getTablePosition().getRow())).setEmail(t.getNewValue());
+            }
+        });
+
         table.setItems(data);
         table.getColumns().addAll(nameCol, emailCol);
-      
+
         final TextField addFirstName = new TextField();
         addFirstName.setPromptText("Last Name");
         addFirstName.setMaxWidth(firstNameCol.getPrefWidth());
@@ -113,12 +106,9 @@ public class TableDemo extends Application {
 
         final Button addButton = new Button("Add");
         addButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-                data.add(new Person(
-                        addFirstName.getText(),
-                        addLastName.getText(),
-                        addEmail.getText()
-                        ));
+            @Override
+            public void handle(ActionEvent e) {
+                data.add(new Person(addFirstName.getText(), addLastName.getText(), addEmail.getText()));
                 addFirstName.setText("");
                 addLastName.setText("");
                 addEmail.setText("");
@@ -138,7 +128,7 @@ public class TableDemo extends Application {
         stage.setScene(scene);
         stage.show();
     }
-    
+
     public static class Person {
         private final StringProperty firstName;
         private final StringProperty lastName;
@@ -153,34 +143,37 @@ public class TableDemo extends Application {
         public String getFirstName() {
             return firstName.get();
         }
+
         public void setFirstName(String fName) {
             firstName.set(fName);
         }
-        
+
         public String getLastName() {
             return lastName.get();
         }
+
         public void setLastName(String fName) {
             lastName.set(fName);
         }
-        
+
         public String getEmail() {
             return email.get();
         }
+
         public void setEmail(String fName) {
             email.set(fName);
         }
-        
+
     }
-    
+
     class EditingCell extends TableCell<Person, String> {
-        
+
         private TextField textField;
 
-        public EditingCell() {            
+        public EditingCell() {
         }
 
-        @Override 
+        @Override
         public void startEdit() {
             super.startEdit();
             if (isEmpty()) {
@@ -202,7 +195,7 @@ public class TableDemo extends Application {
             setContentDisplay(ContentDisplay.TEXT_ONLY);
         }
 
-        @Override         
+        @Override
         public void updateItem(String item, boolean empty) {
             super.updateItem(item, empty);
             if (!isEmpty()) {
@@ -217,7 +210,8 @@ public class TableDemo extends Application {
             textField = new TextField(getItem());
             textField.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
             textField.setOnKeyReleased(new EventHandler<KeyEvent>() {
-                @Override public void handle(KeyEvent t) {
+                @Override
+                public void handle(KeyEvent t) {
                     if (t.getCode() == KeyCode.ENTER) {
                         commitEdit(textField.getText());
                     } else if (t.getCode() == KeyCode.ESCAPE) {
