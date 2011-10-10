@@ -89,7 +89,7 @@ public class ChartsDemoApp extends Application {
                     "/chartssampler/demoapp.css"
             );
             stage.setScene(scene);
-            stage.setVisible(true);
+            stage.show();
         } catch (Throwable e) {
             e.printStackTrace();
         }
