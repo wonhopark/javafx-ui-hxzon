@@ -117,7 +117,7 @@ public class ColorfulCirclesDocs extends Application {
         colors.setBlendMode(BlendMode.OVERLAY);
         ((Group)scene.getRoot()).getChildren().add(outerCircleGroup);
         // show stage
-        stage.setVisible(true);
+        stage.show();
         // create list of all circles
         List<Node> allCircles = new ArrayList<Node>();
         allCircles.addAll(layer1.getChildren());

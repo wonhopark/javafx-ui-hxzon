@@ -48,7 +48,7 @@ public class Main extends Application {
         stage.setTitle(TITLE);
         stage.setResizable(false);
         stage.setScene(createScene());
-        stage.setVisible(true);
+        stage.show();
     }
 
     private Scene createScene() {

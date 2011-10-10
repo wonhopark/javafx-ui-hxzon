@@ -57,7 +57,7 @@ public class Main extends Application {
         scene.setFill(Color.BLACK);
         stage.setScene(scene);
         mainFrame.changeState(MainFrame.SPLASH);
-        stage.setVisible(true);
+        stage.show();
     }
 
     public static void main(String[] args) {

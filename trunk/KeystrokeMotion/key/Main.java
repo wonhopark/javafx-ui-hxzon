@@ -43,7 +43,7 @@ public class Main extends Application {
         Scene scene = new Scene(new LettersPane(),500,500);
         stage.setScene(scene);
         // show stage
-        stage.setVisible(true);
+        stage.show();
     }
 
     public static void main(String[] args) {

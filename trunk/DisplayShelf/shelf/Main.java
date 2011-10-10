@@ -71,7 +71,7 @@ public class Main extends Application {
         // create display shelf
         scene.setRoot(new DisplayShelf(images));
         // show stage
-        stage.setVisible(true);
+        stage.show();
     }
 
     public static void main(String[] args) {

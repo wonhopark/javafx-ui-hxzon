@@ -60,7 +60,7 @@ public class Main extends Application {
         c.getTransforms().add(new Scale(0.83f, 0.83f, 0, 0));
         root.getChildren().add(c);
         // show stage
-        stage.setVisible(true);
+        stage.show();
     }
 
     public static void main(String[] args) {

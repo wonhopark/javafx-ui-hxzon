@@ -49,7 +49,7 @@ public class TimelineEvents extends Application {
 		stack.setLayoutY(30);
 
 		p.getChildren().add(stack);
-		stage.setVisible(true);
+		stage.show();
 
 		//create a timeline for moving the circle
 		timeline = new Timeline();

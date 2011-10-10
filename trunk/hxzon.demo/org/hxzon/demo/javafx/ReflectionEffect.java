@@ -17,7 +17,7 @@ public class ReflectionEffect extends Application {
 
 	@Override
 	public void start(Stage stage) {
-		stage.setVisible(true);
+		stage.show();
 
 		Scene scene = new Scene(new Group(), 840, 680);
 		ObservableList<Node> content = ((Group) scene.getRoot()).getChildren();

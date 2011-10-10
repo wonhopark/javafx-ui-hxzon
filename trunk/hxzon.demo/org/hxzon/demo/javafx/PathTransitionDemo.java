@@ -47,7 +47,7 @@ public class PathTransitionDemo extends Application {
 		
 		p.getChildren().add(rect);
 		
-		stage.setVisible(true);
+		stage.show();
 	}
 
 	public static void main(String[] args) {

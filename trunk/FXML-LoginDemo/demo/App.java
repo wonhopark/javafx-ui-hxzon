@@ -70,7 +70,7 @@ public class App extends Application {
         try {
             stage = primaryStage;
             gotoLogin();
-            primaryStage.setVisible(true);
+            primaryStage.show();
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
