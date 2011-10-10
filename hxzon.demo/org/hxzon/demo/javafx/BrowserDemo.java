@@ -44,6 +44,6 @@ public class BrowserDemo extends Application {
         root.getChildren().add(vbox);
 
         stage.setScene(scene);
-        stage.setVisible(true);
+        stage.show();
     }
 }

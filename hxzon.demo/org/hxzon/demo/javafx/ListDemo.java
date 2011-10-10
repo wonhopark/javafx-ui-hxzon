@@ -87,7 +87,7 @@ public class ListDemo extends Application {
 				label.setTextFill(Color.web(new_val));
 			}
 		});
-		stage.setVisible(true);
+		stage.show();
 	}
 
 	public static void main(String[] args) {

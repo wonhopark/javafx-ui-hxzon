@@ -21,7 +21,7 @@ public class LabelDemo extends Application {
         Scene scene = new Scene(root, 800, 600, Color.ORANGE);
         primaryStage.setScene(scene);
         demo(scene, root);
-        primaryStage.setVisible(true);
+        primaryStage.show();
     }
 
     private void demo(Scene scene, Group root) {

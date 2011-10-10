@@ -81,7 +81,7 @@ public class MainScreen {
         stage.setX((Screen.getPrimary().getVisualBounds().getWidth() - scene.getWidth()) / 2);
         stage.setY((Screen.getPrimary().getVisualBounds().getHeight() - scene.getHeight()) / 2);
         stage.setScene(scene);
-        stage.setVisible(true);
+        stage.show();
     }
     private void configureScene() {
         scene.setFill(GRAY_COLOR);

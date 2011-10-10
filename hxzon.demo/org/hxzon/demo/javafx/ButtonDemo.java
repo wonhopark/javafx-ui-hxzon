@@ -25,7 +25,7 @@ public class ButtonDemo extends Application {
 		Scene scene = new Scene(root, 800, 600, Color.WHITE);
 		primaryStage.setScene(scene);
 		demo(scene,root);
-		primaryStage.setVisible(true);
+		primaryStage.show();
 	}
 
 	private void demo(Scene scene,Group root) {

@@ -36,7 +36,7 @@ public class TimelineAnimation extends Application {
 
 		p.getChildren().add(rect);
 
-		stage.setVisible(true);
+		stage.show();
 
 	}
 
