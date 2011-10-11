@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="hxzon.demo"/>
+	<classpathentry kind="src" path="ColorfulCircles"/>
+	<classpathentry kind="src" path="BrickBreaker"/>
+	<classpathentry kind="src" path="ChartsSampler"/>
+	<classpathentry kind="src" path="DigitalClock"/>
+	<classpathentry kind="src" path="DisplayShelf"/>
+	<classpathentry kind="src" path="KeystrokeMotion"/>
+	<classpathentry kind="src" path="PathAnimation"/>
+	<classpathentry kind="src" path="PuzzlePieces"/>
+	<classpathentry kind="src" path="SwingJavaFXChart"/>
+	<classpathentry kind="src" path="FXML-LoginDemo"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.7.0"/>
+	<classpathentry kind="lib" path="D:/develop/java/javafx2.0/rt/lib/jfxrt.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
