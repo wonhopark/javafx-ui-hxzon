@@ -51,6 +51,8 @@ public class TableDemo extends Application {
         label.setFont(new Font("Arial", 20));
 
         table.setStyle("-fx-base: #b6e7c9;");
+        //Enabling editing
+        table.setEditable(true);
         Callback<TableColumn<Person, String>, TableCell<Person, String>> cellFactory = new Callback<TableColumn<Person, String>, TableCell<Person, String>>() {
             public TableCell<Person, String> call(TableColumn<Person, String> p) {
                 return new EditingCell();
