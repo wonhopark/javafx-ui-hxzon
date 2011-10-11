@@ -11,6 +11,7 @@
 	<classpathentry kind="src" path="PuzzlePieces"/>
 	<classpathentry kind="src" path="SwingJavaFXChart"/>
 	<classpathentry kind="src" path="FXML-LoginDemo"/>
+	<classpathentry kind="src" path="Ensemble"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.7.0"/>
 	<classpathentry kind="lib" path="D:/develop/java/javafx2.0/rt/lib/jfxrt.jar"/>
 	<classpathentry kind="output" path="bin"/>

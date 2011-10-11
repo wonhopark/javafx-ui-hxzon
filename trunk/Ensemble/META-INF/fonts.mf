@@ -1,0 +1,8 @@
+Amble = /com/javafx/experiments/ensemble2/fonts/Amble-Regular.ttf
+Amble\ Italic = /com/javafx/experiments/ensemble2/fonts/Amble-Italic.ttf
+Amble\ Bold = /com/javafx/experiments/ensemble2/fonts/Amble-Bold.ttf
+Amble\ Bold\ Italic = /com/javafx/experiments/ensemble2/fonts/Amble-BoldItalic.ttf
+Amble\ Light = /com/javafx/experiments/ensemble2/fonts/Amble-Light.ttf
+Amble\ Light\ Italic = /com/javafx/experiments/ensemble2/fonts/Amble-LightItalic.ttf
+Amble\ Light\ Condensed = /com/javafx/experiments/ensemble2/fonts/Amble-LightCondensed.ttf
+Amble\ Cn\ Light\ Italic = /com/javafx/experiments/ensemble2/fonts/Amble-LightCondensedItalic.ttf
