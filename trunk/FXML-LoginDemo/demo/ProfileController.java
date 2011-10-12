@@ -31,49 +31,61 @@
  */
 package demo;
 
-import javafx.scene.control.TextArea;
-import demo.model.User;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.animation.FadeTransition;
-import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
+import demo.model.User;
 
 /**
  * Java FX FXML Controller.
  */
 public class ProfileController implements Initializable {
-    @FXML private TextField user;
-    @FXML private TextField phone;
-    @FXML private TextField email;
-    @FXML private TextArea address;
-    @FXML private CheckBox subscribed;
-    @FXML private Label success;
-    
-    @Override public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    private TextField user;
+    @FXML
+    private TextField phone;
+    @FXML
+    private TextField email;
+    @FXML
+    private TextArea address;
+    @FXML
+    private CheckBox subscribed;
+    @FXML
+    private Label success;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         User loggedUser = App.getInstance().getLoggedUser();
         user.setText(loggedUser.getId());
-//        email.setText(loggedUser.getEmail());
-//        phone.setText(loggedUser.getPhone());
-        if(loggedUser.getAddress() != null) {
+        if (loggedUser.getEmail() != null) {
+            email.setText(loggedUser.getEmail());
+        }
+        if (loggedUser.getPhone() != null) {
+            phone.setText(loggedUser.getPhone());
+        }
+        if (loggedUser.getAddress() != null) {
             address.setText(loggedUser.getAddress());
         }
         subscribed.setSelected(loggedUser.isSubscribed());
         success.setOpacity(0);
     }
-    
-    @FXML protected void processLogout(ActionEvent event) {
+
+    @FXML
+    protected void processLogout(ActionEvent event) {
         App.getInstance().userLogout();
     }
-    
-    @FXML protected void processUpdate(ActionEvent event) {
+
+    @FXML
+    protected void processUpdate(ActionEvent event) {
         User loggedUser = App.getInstance().getLoggedUser();
         loggedUser.setEmail(email.getText());
         loggedUser.setPhone(phone.getText());
@@ -87,5 +99,5 @@ public class ProfileController implements Initializable {
         ft.setFromValue(0.0);
         ft.setToValue(1);
         ft.play();
-    }    
+    }
 }

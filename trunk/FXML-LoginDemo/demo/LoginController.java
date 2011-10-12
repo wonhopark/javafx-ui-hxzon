@@ -33,20 +33,24 @@ package demo;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
 
 /**
  * Login Controller.
  */
 public class LoginController {
-    @FXML private TextField userId;
-    @FXML private PasswordField password;
-    @FXML private Label errorMessage;
-    
-    @FXML protected void processLogin(ActionEvent event) {
-        if(!App.getInstance().userLogging(userId.getText(), password.getText())){
+    @FXML
+    private TextField userId;
+    @FXML
+    private PasswordField password;
+    @FXML
+    private Label errorMessage;
+
+    @FXML
+    protected void processLogin(ActionEvent event) {
+        if (!App.getInstance().userLogging(userId.getText(), password.getText())) {
             errorMessage.setText("Unknown user " + userId.getText());
         }
     }
