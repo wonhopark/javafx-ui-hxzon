@@ -31,16 +31,17 @@
  */
 package demo;
 
-import demo.model.User;
-import demo.security.Authenticator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import demo.model.User;
+import demo.security.Authenticator;
 
 /**
  * Main Application. This class handles navigation and user session.
@@ -48,17 +49,17 @@ import javafx.stage.Stage;
 public class App extends Application {
     private Stage stage;
     private User loggedUser;
-    
+
     private static App instance;
 
     public App() {
         instance = this;
     }
-    
+
     public static App getInstance() {
         return instance;
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -66,7 +67,8 @@ public class App extends Application {
         launch(args);
     }
 
-    @Override public void start(Stage primaryStage) {
+    @Override
+    public void start(Stage primaryStage) {
         try {
             stage = primaryStage;
             gotoLogin();
@@ -79,8 +81,8 @@ public class App extends Application {
     public User getLoggedUser() {
         return loggedUser;
     }
-        
-    public boolean userLogging(String userId, String password){
+
+    public boolean userLogging(String userId, String password) {
         if (Authenticator.validate(userId, password)) {
             loggedUser = User.of(userId);
             gotoProfile();
@@ -89,12 +91,12 @@ public class App extends Application {
             return false;
         }
     }
-    
-    public void userLogout(){
+
+    public void userLogout() {
         loggedUser = null;
         gotoLogin();
     }
-    
+
     private void gotoProfile() {
         try {
             replaceSceneContent("profile.fxml");

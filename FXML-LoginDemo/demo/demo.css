@@ -31,11 +31,11 @@
  */
 
 .login {
-    -fx-background-color:linear (0%,0%) to (0%,100%) stops (0.0,white) (1.0,#DDDDDD);
+    -fx-background-color:linear-gradient(from 0px 0px to 0px 50px, gray, darkgray 50%, dimgray 99%, white);
     -fx-font-size: 1.3em;
 }
 .profile {
-    -fx-background-color:linear (0%,0%) to (0%,100%) stops (0.0,white) (1.0,#DDDDDD);
+    -fx-background-color:linear-gradient(from 0px 0px to 0px 50px, gray, darkgray 50%, dimgray 99%, white);
     -fx-font-size: 1.2em;
 }
 .profile #subscribed {

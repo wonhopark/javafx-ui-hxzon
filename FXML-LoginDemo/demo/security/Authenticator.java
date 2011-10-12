@@ -42,7 +42,8 @@ public class Authenticator {
     static {
         USERS.put("demo", "demo");
     }
-    public static boolean validate(String user, String password){
+
+    public static boolean validate(String user, String password) {
         String validUserPassword = USERS.get(user);
         return validUserPassword != null && validUserPassword.equals(password);
     }
