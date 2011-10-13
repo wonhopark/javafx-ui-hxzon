@@ -31,11 +31,14 @@
  */
 package com.javafx.experiments.ensemble2.samples.controls.table;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 import com.javafx.experiments.ensemble2.Sample;
 
@@ -55,30 +58,30 @@ public class TableSample extends Sample {
                 new Person("Emma", "Jones", "emma.jones@example.com"), new Person("Michael", "Brown", "michael.brown@example.com"));
         TableColumn<Person, String> firstNameCol = new TableColumn<Person, String>();
         firstNameCol.setText("First");
-//        firstNameCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Person,String>,ObservableValue<String>>() {
-//            @Override public ObservableValue<String> call(CellDataFeatures<Person,String> p) {
-//                return ((Person)p.getValue()).firstName;
-//            }
-//        });
-        firstNameCol.setCellValueFactory(new PropertyValueFactory<Person, String>("firstName"));
-        TableColumn lastNameCol = new TableColumn();
+        firstNameCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Person,String>,ObservableValue<String>>() {
+            @Override public ObservableValue<String> call(CellDataFeatures<Person,String> p) {
+                return new SimpleStringProperty(p.getValue().firstName);
+            }
+        });
+//        firstNameCol.setCellValueFactory(new PropertyValueFactory<Person, String>("firstName"));
+        TableColumn<Person, String> lastNameCol = new TableColumn<Person, String>();
         lastNameCol.setText("Last");
-//        lastNameCol.setDataRetriever(new Callback<TableColumn.CellDataFeatures<Person,String>, String>() {
-//            @Override public String call(CellDataFeatures<Person,String> p) {
-//                return ((Person)p.getValue()).lastName;
-//            }
-//        });
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<Person, String>("lastName"));
-        TableColumn emailCol = new TableColumn();
+        lastNameCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Person,String>, ObservableValue<String>>() {
+            @Override public ObservableValue<String> call(CellDataFeatures<Person,String> p) {
+                return new SimpleStringProperty(p.getValue().lastName);
+            }
+        });
+//        lastNameCol.setCellValueFactory(new PropertyValueFactory<Person, String>("lastName"));
+        TableColumn<Person, String> emailCol = new TableColumn<Person, String>();
         emailCol.setText("Email");
         emailCol.setMinWidth(200);
-//        emailCol.setDataRetriever(new Callback<TableColumn.CellDataFeatures<Person,String>, String>() {
-//            @Override public String call(CellDataFeatures<Person,String> p) {
-//                return ((Person)p.getValue()).email;
-//            }
-//        });
-        emailCol.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
-        TableView tableView = new TableView();
+        emailCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Person,String>, ObservableValue<String>>() {
+            @Override public ObservableValue<String> call(CellDataFeatures<Person,String> p) {
+                return new SimpleStringProperty(p.getValue().email);
+            }
+        });
+//        emailCol.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
+        TableView<Person> tableView = new TableView<Person>();
         tableView.setItems(data);
         tableView.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
         getChildren().add(tableView);
