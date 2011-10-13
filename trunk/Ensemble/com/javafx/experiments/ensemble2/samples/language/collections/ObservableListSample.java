@@ -105,7 +105,9 @@ public class ObservableListSample extends Sample {
         buttonAdd.setPrefSize(190, 20);
         final ListChangeListener<Integer> listener = new ListChangeListener<Integer>() {
             public void onChanged(Change<? extends Integer> c) {
-                textMessage.setText("replacement on index " + c.getFrom());
+                while (c.next()){
+                    textMessage.setText("replacement on index " + c.getFrom());
+                }
             }
         };
 
